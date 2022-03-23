@@ -95,13 +95,44 @@ void pointerFunc() {
     printf("%d\n", a);
 }
 
+void pointersAndArrays() {
+    int A[] = {10, 4, 65, 34, 95};
+
+    // The address of the array is the same address as the first element in array.
+//    printf("Address %d\n", A);
+//    printf("Address %d\n", &A[0]);
+
+    int* p = A;
+    // We can do, as for it will go to the next element in array.
+//    p++;
+    // But not
+//    A++;
+
+    for(int i = 0; i < 5; i++) {
+        printf("Address at element %d in array is %d\n", i, A+i);
+        // Note it is additive by 4 because an int takes 4 bytes.
+        printf("Value at element %d in array is %d\n", i, *(A+i));
+
+        // We can also access the array normally:
+//        printf("Address at element %d in array is %d\n", i, &A[i]);
+//        printf("Value at element %d in array is %d\n", i, A[i]);
+    }
+
+    // We can also do
+//    for(int i = 0; i < 5; i++) {
+//        printf("Address at element %d in array is %d\n", i, p);
+//        printf("Value at element %d in array is %d\n", i, *p);
+//        p++;
+//    }
+}
+
 int main() {
 //    workingWithPointers();
 //    pointerArithmetic();
 //    pointerTypesEtc();
 //    pointerToPointer();
-    pointerFunc();
-
+//    pointerFunc();
+    pointersAndArrays();
 
     return 0;
 }
