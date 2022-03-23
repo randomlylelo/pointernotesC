@@ -394,6 +394,52 @@ void funcPointers() {
     printf("%d\n", c);
 }
 
+void funcPointersAndCallbacksA() {
+    printf("Hello World!\n");
+}
+void funcPointersAndCallbacksB(void (*p)()) {
+    p();
+}
+int funcPointersAndCallbacksBubbleSortCompareInc(int a, int b) {
+    if(a > b) {
+        return 1;
+    }
+    return -1;
+}
+int funcPointersAndCallbacksBubbleSortCompareDec(int a, int b) {
+    if(a > b) {
+        return -1;
+    }
+    return 1;
+}
+void funcPointersAndCallbacksBubbleSort(int* arr, int size, int (*func)(int, int)) {
+    for(int i = 0; i < size; i++) {
+        for(int j = 0; j < size-1; j++) {
+            if(func(arr[j], arr[j+1]) > 0) {
+                int temp = arr[j];
+                arr[j] = arr[j+1];
+                arr[j+1] = temp;
+            }
+        }
+    }
+}
+void funcPointersAndCallbacks() {
+    // B gets called normally as a function, A is passed in as memory pointer. So it would be same as &funcPointersAndCallbacksA.
+    funcPointersAndCallbacksB(funcPointersAndCallbacksA);
+
+    // Use case of this would be like sorting algo, but different compare.
+    int arr[] = { 20, 34, 95, 23, 56 };
+    int size = sizeof(arr)/sizeof(arr[0]); // sizeof arr, returns 20 cuz 20 bytes is taken up, so we need to divide.
+
+    // passing in the function is much better, as for it allows for any comparative value, we can also do flags but that
+    // would get messy quick especially if we want to have multiple comparisons, eg, absolute value, etc..
+//    funcPointersAndCallbacksBubbleSort(arr, size, funcPointersAndCallbacksBubbleSortCompareInc);
+    funcPointersAndCallbacksBubbleSort(arr, size, funcPointersAndCallbacksBubbleSortCompareDec);
+    for(int i = 0; i < size; i++) {
+        printf("%d ", arr[i]);
+    }
+}
+
 int main() {
 //    workingWithPointers();
 //    pointerArithmetic();
@@ -408,7 +454,8 @@ int main() {
 //    ptrAndDynamicMemoryC();
 //    pointersAsFunctionReturns();
 //    ptrAsFunReturns();
-    funcPointers();
+//    funcPointers();
+    funcPointersAndCallbacks();
 
     return 0;
 }
