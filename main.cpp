@@ -204,13 +204,49 @@ void charArrPrint2(const char* C) {
     printf("\n");
 }
 void charArrAndPtr2() {
-    char C[20] = "Hello"; // This gets put in the stack of the memory, give 20 bytes so we can modify.
+    char C[20] = "Hello"; // This gets put in the stack of the memory, give 20 bytes, so we can modify.
 //    char* C = "Hello"; // This would be stored as a constant in text of memory. So we won't be able to modify.
     // Next line will error.
 //    C[0] = 'T';
 //    printf("%s\n", C);
 
     charArrPrint2(C);
+}
+
+void ptrAndMultiDimArr() {
+    int arr[2][3]= {{ 10, 20, 30 }, { 40, 50, 60 }};
+
+    printf("First memory address\n");
+    // These gets the first array memory address so this { 10, 20, 30 }
+    int (*p)[3] = arr; // pointer of size 3 int array. So it would increment by 12 bytes
+    // Need to do above format because arr would be returning single array of 3 ints inside.
+    printf("%d arr value\n", arr); // arr is equivalent to arr[0]
+    printf("%d arr[0] value \n", arr[0]);
+    printf("%d *arr value\n", *arr);
+    printf("%d p value\n", p);
+    printf("%d p+1 value, notice the incremental by 12\n", p+1); // this points to essentially arr[1][0]
+    printf("%d &arr[0][0] value\n", &arr[0][0]);
+    // all value would just be the memory value of the first elem which is 10 here.
+    // The pointer is different because it increments by 12 bytes.
+
+    printf("\nFirst value\n");
+    // Get the first element
+    int* pInt = &arr[0][0];
+    printf("%d *pInt value\n", *pInt);
+    printf("%d **arr value\n", **arr);
+    printf("%d arr[0][0] value\n", arr[0][0]);
+    printf("%d *(pInt + 1) value\n", *(pInt + 1));
+
+    printf("\nQuic Maths\n");
+    printf("%d arr[1][2] value\n", arr[1][2]);
+    printf("%d *(arr[1] + 2)) value\n", *(arr[1] + 2));
+    // They are the same because arr[1] returns a pointer of the second array, and we want the final value, so we add 2.
+    // Pointer arithmetic will get us 60 which is the last element. Cuz it adds 8 bytes. Look at memory address:
+    printf("%d &arr[1][2] value\n", &arr[1][2]);
+    printf("%d *(arr[1] + 2)) value\n", (arr[1] + 2)); // Look at p+1 value which is the memory address of arr[1][0]
+
+    // These concepts can be expanded into multiple dimensions...
+    // Would be difficult to wrap head around so make sure to draw it out.
 }
 
 int main() {
@@ -222,7 +258,8 @@ int main() {
 //    pointersAndArrays();
 //    arraysAsFuncArgs();
 //    charArrAndPointers();
-    charArrAndPtr2();
+//    charArrAndPtr2();
+    ptrAndMultiDimArr();
 
     return 0;
 }
