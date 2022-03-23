@@ -1,3 +1,4 @@
+// https://youtu.be/zuegQmMdy8M
 #include<stdio.h>
 
 void workingWithPointers() {
@@ -65,10 +66,26 @@ void pointerTypesEtc() {
 //    printf("Void+1 address = %d\n", pVoid+1);
 }
 
+void pointerToPointer() {
+    int x = 5;
+    int* p = &x;
+
+    int** q = &p;
+    // Change value of x.
+    // Best way to do this is to draw it out.
+    **q = 10;
+
+    printf("%d\n", **q);
+    **q = *p + 2;
+    printf("%d\n", **q);
+    // More pointers just add *.
+}
+
 int main() {
 //    workingWithPointers();
 //    pointerArithmetic();
-    pointerTypesEtc();
+//    pointerTypesEtc();
+    pointerToPointer();
 
     return 0;
 }
