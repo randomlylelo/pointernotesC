@@ -365,7 +365,21 @@ void pointersAsFunctionReturns() {
         // Copies and sets others to garbage or 0.
         printf("%d\n", reall2[i]);
     }
+}
 
+int* ptrAsFunReturnsAdd(int* a, int* b) {
+    // We want to use malloc to have memory stored in heap, not in stack where it will be deallocated automatically.
+    int* c = (int*) malloc(sizeof(int));
+    *c = (*a) + (*b);
+    return c;
+}
+void ptrAsFunReturns() {
+    int a = 2;
+    int b = 4;
+    int* ptr = ptrAsFunReturnsAdd(&a, &b);
+    printf("Sum = %d\n", *ptr);
+    // Make sure to free.
+    free(ptr);
 }
 
 int main() {
@@ -380,7 +394,8 @@ int main() {
 //    charArrAndPtr2();
 //    ptrAndMultiDimArr();
 //    ptrAndDynamicMemoryC();
-    pointersAsFunctionReturns();
+//    pointersAsFunctionReturns();
+    ptrAsFunReturns();
 
     return 0;
 }
