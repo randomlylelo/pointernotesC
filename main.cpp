@@ -126,13 +126,61 @@ void pointersAndArrays() {
 //    }
 }
 
+int sumOfElements(int A[], int size) {
+    // Compiler interprets as int* A. So only gets the first element pointer of A. Doesn't make a copy
+    // Which makes sense because arrays can be very big.
+    // So the next line wouldn't work because it would be 4/4 = 1.
+//    int size2 = sizeof(A) / sizeof(A[0]);
+    printf("SOE: Size of A = %d, size of A[0] = %d\n", sizeof(A), sizeof(A[0]));
+    // This C++ 14 compiler weird. sizeof(A) should be 4, doesn't matter. Just how they made the compiler.
+    int sum = 0;
+    for(int i = 0; i < size; i++) {
+        sum += A[i];
+    }
+
+    return sum;
+}
+void doubleArrElems(int A[], int size) {
+    // See it is like pointers, can modify.
+    for(int i = 0; i < size; i++) {
+        A[i] += A[i];
+    }
+}
+void reduceArrElems(int* A, int size) {
+    for(int i = 0; i < size; i++) {
+        *(A + i) -= *(A + i)/2;
+    }
+}
+void arraysAsFuncArgs() {
+    int A[] = {10, 4, 65, 34, 95};
+    int size = sizeof(A) / sizeof(A[0]);
+    int total = sumOfElements(A, size);
+
+    printf("Sum of elements = %d\n", total);
+    printf("Main: Size of A = %d, size of A[0] = %d\n", sizeof(A), sizeof(A[0]));
+
+    printf("Double array elements:\n");
+    doubleArrElems(A, size);
+    for(int i = 0; i < size; i++) {
+        printf("%d\n", A[i]);
+    }
+    printf("Reduce array elements:\n");
+    // Can also be &A[0] instead of A.
+    reduceArrElems(A, size);
+    for(int i = 0; i < size; i++) {
+        printf("%d\n", A[i]);
+    }
+
+}
+
 int main() {
 //    workingWithPointers();
 //    pointerArithmetic();
 //    pointerTypesEtc();
 //    pointerToPointer();
 //    pointerFunc();
-    pointersAndArrays();
+//    pointersAndArrays();
+    arraysAsFuncArgs();
 
     return 0;
 }
