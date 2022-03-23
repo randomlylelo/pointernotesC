@@ -296,7 +296,76 @@ void ptrAndDynamicMemoryC() {
 }
 
 void pointersAsFunctionReturns() {
-    // Stopped at 2:36:48
+    // calloc is just malloc but takes the number of space that should be allocated and initializes them instead of
+    // returning a garbage value when you deference them using malloc. It is essentially the same as the num*sizeof(etc).
+
+    // For example, essentially the same:
+    int* p = (int*) malloc(3*sizeof(int));
+    printf("%d\n", *p);
+    free(p);
+
+    // Only difference is that calloc initializes the value to 0. Depends on the compiler.
+    int* c = (int*) calloc(3, sizeof(int));
+    printf("%d\n", *c);
+    free(c);
+
+    // Uses for dynamic memory:
+    int n;
+    printf("Type number: ");
+    scanf("%d", &n);
+
+    /*
+     * Following code will not work.
+     * We will get SIGSEGV error.
+     */
+//    int* arr[n];
+//    for(int i = 0; i < n; i++) {
+//        *arr[i] = i;
+//    }
+//    for(int i = 0; i < n; i++) {
+//        printf("%d\n", *arr[i]);
+//    }
+
+    // Thus, we have to use malloc.
+//    int* arr = (int*) malloc(n*sizeof(int));
+    // calloc also works.
+//    int* arr = (int*) calloc(n, sizeof(int));
+    // can also use realloc.
+    int* arr = (int*) realloc(NULL, n*sizeof(int));
+    for(int i = 0; i < n; i++) {
+        arr[i] = i;
+    }
+    for(int i = 0; i < n; i++) {
+        printf("%d\n", arr[i]);
+    }
+    // To free we can use
+//    free(arr);
+    // or,
+    realloc(arr, 0);
+
+    // The main use of realloc is to reallocate memory, expand or shrink the size of the memory chunk already reserved.
+    int* reall = (int*) malloc(10*sizeof(int));
+    printf("Previous memory block start: %d\n", reall);
+    for(int i = 0; i < 10; i++) {
+        reall[i] = i;
+        printf("%d\n", reall[i]);
+    }
+    reall = (int*) realloc(reall, 5);
+    printf("Next memory block start: %d\n", reall);
+    for(int i = 0; i < 10; i++) {
+        // Should be garbage (after 5) weird. Probs some weird compiler or caching problemo.
+        printf("%d\n", reall[i]);
+    }
+
+    // Can also realloc into new variable. Which will make new memory block and copy the values of the previous to new.
+    // It can also extend the previous block. So the memory address can all be the same.
+    int* reall2 = (int*) realloc(reall, 20);
+    printf("Next memory block start: %d\n", reall2);
+    for(int i = 0; i < 20; i++) {
+        // Copies and sets others to garbage or 0.
+        printf("%d\n", reall2[i]);
+    }
+
 }
 
 int main() {
