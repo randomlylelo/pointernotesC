@@ -81,11 +81,27 @@ void pointerToPointer() {
     // More pointers just add *.
 }
 
+void increment(int* p) {
+    // This is called "Call by reference"
+    // It uses less memory because it essentially doesn't clone the variable to modify it and return, instead it
+    // uses the variable in memory already and increment it.
+    // Does add to the stack of calls, but overall less memory use.
+    *p = *p + 1;
+}
+void pointerFunc() {
+    int a = 10;
+    printf("%d\n", a);
+    increment(&a);
+    printf("%d\n", a);
+}
+
 int main() {
 //    workingWithPointers();
 //    pointerArithmetic();
 //    pointerTypesEtc();
-    pointerToPointer();
+//    pointerToPointer();
+    pointerFunc();
+
 
     return 0;
 }
