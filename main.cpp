@@ -367,8 +367,11 @@ void pointersAsFunctionReturns() {
     }
 }
 
+// Example of global variable.
+//int c;
 int* ptrAsFunReturnsAdd(int* a, int* b) {
     // We want to use malloc to have memory stored in heap, not in stack where it will be deallocated automatically.
+    // We can also use global variable.
     int* c = (int*) malloc(sizeof(int));
     *c = (*a) + (*b);
     return c;
