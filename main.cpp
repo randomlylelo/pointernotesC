@@ -272,6 +272,9 @@ void ptrAndDynamicMemoryC() {
 
     // In C, we do:
     int* p = (int*)malloc(sizeof(int)); // this will allocate 4 bytes of memory bc int takes 4 bytes.
+    // malloc returns a void pointer, returns void* (thus why we had to cast to int*). It will be the start of the memory address.
+    // malloc takes size_t which is essentially an unsigned int.
+    // Also, how much space sizeof(int) takes is different per compiler so setting it to 4 is not a good idea.
 
     // The only way to use the memory in heap is to use it via de-referencing.
     *p = 10;
@@ -286,8 +289,14 @@ void ptrAndDynamicMemoryC() {
 
     // Want an array?
     p = (int*)malloc(20*sizeof(int)); // We now have 20 elements. takes up 20*4 bytes.
+    printf("%d\n", p); // pointer to first elem in arr.
+    printf("%d\n", p+1); // pointer to second elem.
     free(p);
     ptrAndDynamicMemoryCpp();
+}
+
+void pointersAsFunctionReturns() {
+    // Stopped at 2:36:48
 }
 
 int main() {
@@ -301,7 +310,8 @@ int main() {
 //    charArrAndPointers();
 //    charArrAndPtr2();
 //    ptrAndMultiDimArr();
-    ptrAndDynamicMemoryC();
+//    ptrAndDynamicMemoryC();
+    pointersAsFunctionReturns();
 
     return 0;
 }
