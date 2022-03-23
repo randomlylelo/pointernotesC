@@ -194,6 +194,25 @@ void charArrAndPointers() {
     charArrPrint(C);
 }
 
+void charArrPrint2(const char* C) {
+    // We cannot modify the pointer anymore since it is a const. To get next line to work, remove const.
+//    *C = 'T';
+    while(*C != '\0') {
+        printf("%c", *C);
+        C++; // Move to next char by adding 1.
+    }
+    printf("\n");
+}
+void charArrAndPtr2() {
+    char C[20] = "Hello"; // This gets put in the stack of the memory, give 20 bytes so we can modify.
+//    char* C = "Hello"; // This would be stored as a constant in text of memory. So we won't be able to modify.
+    // Next line will error.
+//    C[0] = 'T';
+//    printf("%s\n", C);
+
+    charArrPrint2(C);
+}
+
 int main() {
 //    workingWithPointers();
 //    pointerArithmetic();
@@ -202,7 +221,8 @@ int main() {
 //    pointerFunc();
 //    pointersAndArrays();
 //    arraysAsFuncArgs();
-    charArrAndPointers();
+//    charArrAndPointers();
+    charArrAndPtr2();
 
     return 0;
 }
