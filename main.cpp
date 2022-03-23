@@ -170,7 +170,28 @@ void arraysAsFuncArgs() {
     for(int i = 0; i < size; i++) {
         printf("%d\n", A[i]);
     }
+}
 
+void charArrPrint(char* C) {
+    // As long as the char is not the zero character.
+    while(*C != '\0') {
+        printf("%c", *C);
+        C++; // Move to next char by adding 1.
+    }
+    printf("\n");
+}
+void charArrAndPointers() {
+    char string[20];
+    string[0] = 'J';
+    string[1] = 'O';
+    string[2] = 'H';
+    string[3] = 'N';
+    string[4] = '\0'; // Always end with zero character. Used to terminate the string.
+    printf("%s\n", string);
+
+    char C[20] = "Hello world!"; // This automatically adds the \0.
+    // This will pass in the memory location of the first char, aka the location of 'H'.
+    charArrPrint(C);
 }
 
 int main() {
@@ -180,7 +201,8 @@ int main() {
 //    pointerToPointer();
 //    pointerFunc();
 //    pointersAndArrays();
-    arraysAsFuncArgs();
+//    arraysAsFuncArgs();
+    charArrAndPointers();
 
     return 0;
 }
