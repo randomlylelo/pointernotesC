@@ -382,6 +382,18 @@ void ptrAsFunReturns() {
     free(ptr);
 }
 
+int funcPointersAdd(int a, int b) {
+    return a + b;
+}
+void funcPointers() {
+    int c;
+    // We need () because w/o it, it would be like int* p(int, int) which is a func declaration.
+    int (*p)(int, int);
+    p = funcPointersAdd; // same as &funcPointersAdd
+    c = p(2,3);
+    printf("%d\n", c);
+}
+
 int main() {
 //    workingWithPointers();
 //    pointerArithmetic();
@@ -395,7 +407,8 @@ int main() {
 //    ptrAndMultiDimArr();
 //    ptrAndDynamicMemoryC();
 //    pointersAsFunctionReturns();
-    ptrAsFunReturns();
+//    ptrAsFunReturns();
+    funcPointers();
 
     return 0;
 }
