@@ -1,5 +1,6 @@
 // https://youtu.be/zuegQmMdy8M
 #include<stdio.h>
+#include<stdlib.h>
 
 void workingWithPointers() {
     /**
@@ -249,6 +250,46 @@ void ptrAndMultiDimArr() {
     // Would be difficult to wrap head around so make sure to draw it out.
 }
 
+void ptrAndDynamicMemoryCpp() {
+    // In C++, we do:
+    int* p = new int;
+    *p = 10;
+
+    // Make sure to free the memory
+    delete(p);
+
+    // Want an array?
+    p = new int[20]; // We now have 20 elements. takes up 20*4 bytes.
+    delete[] p;
+}
+void ptrAndDynamicMemoryC() {
+    // The video has nice picture, around 2:25:00 in.
+    int a; // this would go on stack.
+
+    // If we want to use heap, which is controlled 100% by the programmer (this is what leads to memory leaks as for
+    // people forget to free the memory and the program will eat enough memory from the system). Essentially the
+    // free memory (not pre-allocated?).
+
+    // In C, we do:
+    int* p = (int*)malloc(sizeof(int)); // this will allocate 4 bytes of memory bc int takes 4 bytes.
+
+    // The only way to use the memory in heap is to use it via de-referencing.
+    *p = 10;
+
+    // Make sure to free the memory
+    free(p);
+
+    // Now ask for new memory address
+    p = (int*)malloc(sizeof(int));
+    *p = 20;
+    free(p);
+
+    // Want an array?
+    p = (int*)malloc(20*sizeof(int)); // We now have 20 elements. takes up 20*4 bytes.
+    free(p);
+    ptrAndDynamicMemoryCpp();
+}
+
 int main() {
 //    workingWithPointers();
 //    pointerArithmetic();
@@ -259,7 +300,8 @@ int main() {
 //    arraysAsFuncArgs();
 //    charArrAndPointers();
 //    charArrAndPtr2();
-    ptrAndMultiDimArr();
+//    ptrAndMultiDimArr();
+    ptrAndDynamicMemoryC();
 
     return 0;
 }
